@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "mermaid": "^11.0.2"
+    "mermaid": "^11.10.0"
   },
   "scripts": {
     "build": "webpack --mode production"
