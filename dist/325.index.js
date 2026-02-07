@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkextension_mermaid=self.webpackChunkextension_mermaid||[]).push([[325],{2325(e,s,a){a.d(s,{createPacketServices:()=>c.$});var c=a(3858);a(7425)}}]);

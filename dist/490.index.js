@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkextension_mermaid=self.webpackChunkextension_mermaid||[]).push([[490],{3490(e,s,n){n.d(s,{createInfoServices:()=>a.v});var a=n(1885);n(7425)}}]);
