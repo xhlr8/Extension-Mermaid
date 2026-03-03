@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkextension_mermaid=self.webpackChunkextension_mermaid||[]).push([[392],{5392:(e,s,a)=>{a.d(s,{createGitGraphServices:()=>i.b});var i=a(4087);a(1272)}}]);
