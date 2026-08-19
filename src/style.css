@@ -1,6 +1,255 @@
-.mermaid>svg {
-    background: var(--black30a);
-    padding: 10px;
-    border: 1px var(--white50a) solid;
+.mermaid-viewer {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    max-height: min(320px, 34vh);
+    margin: 0.5em 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--white30a, rgb(255 255 255 / 30%));
+    border-radius: 8px;
+    background: var(--black30a, rgb(0 0 0 / 30%));
+    white-space: normal;
+}
+
+.mermaid-toolbar {
+    position: absolute;
+    z-index: 2;
+    top: 0.4rem;
+    right: 0.4rem;
+    display: none;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.2rem;
+    border: 1px solid var(--white30a, rgb(255 255 255 / 30%));
+    border-radius: 7px;
+    background: rgb(15 15 15 / 90%);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 35%);
+    backdrop-filter: blur(4px);
+}
+
+.mermaid-control {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
     border-radius: 5px;
+    color: var(--SmartThemeBodyColor, #eee);
+    background: transparent;
+    font: 700 1.15rem/1 sans-serif;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.mermaid-control:hover,
+.mermaid-control:focus-visible {
+    color: #fff;
+    background: var(--white20a, rgb(255 255 255 / 20%));
+    outline: none;
+}
+
+.mermaid-control:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.mermaid-zoom-value {
+    width: 3.2rem;
+    color: var(--SmartThemeBodyColor, #eee);
+    font: 600 0.75rem/1 sans-serif;
+    text-align: center;
+}
+
+.mermaid-viewport {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100px;
+    max-height: min(320px, 34vh);
+    overflow: hidden;
+    touch-action: pan-y;
+    cursor: zoom-in;
+}
+
+.mermaid-viewport:focus-visible {
+    outline: 2px solid var(--SmartThemeQuoteColor, #6cf);
+    outline-offset: -2px;
+}
+
+.mermaid-surface {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 100%;
+    min-height: 100%;
+    padding: 10px;
+    pointer-events: none;
+}
+
+.mermaid-diagram {
+    display: block;
+    box-sizing: border-box;
+    max-width: none !important;
+    max-height: none !important;
+    flex: 0 0 auto;
+    background: transparent;
+}
+
+.mermaid-open-hint {
+    position: absolute;
+    z-index: 1;
+    right: 0.45rem;
+    bottom: 0.45rem;
+    padding: 0.32rem 0.55rem;
+    border: 1px solid var(--white30a, rgb(255 255 255 / 30%));
+    border-radius: 999px;
+    color: var(--SmartThemeBodyColor, #eee);
+    background: rgb(15 15 15 / 84%);
+    box-shadow: 0 1px 5px rgb(0 0 0 / 35%);
+    font: 600 0.72rem/1.2 sans-serif;
+    pointer-events: none;
+}
+
+.mermaid-preview-placeholder {
+    width: 100%;
+    max-height: min(320px, 34vh);
+}
+
+body.mermaid-viewer-modal-open {
+    overflow: hidden;
+}
+
+.mermaid-modal-overlay {
+    position: fixed;
+    z-index: 100000;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+    background: rgb(0 0 0 / 68%);
+    backdrop-filter: blur(3px);
+}
+
+.mermaid-viewer-modal {
+    width: min(920px, 94vw);
+    max-width: min(920px, 94vw);
+    height: min(680px, 82vh);
+    height: min(680px, 82dvh);
+    min-height: min(360px, 70vh);
+    max-height: 82vh;
+    max-height: 82dvh;
+    margin: 0;
+    border-color: var(--white50a, rgb(255 255 255 / 50%));
+    border-radius: 10px;
+    background: var(--SmartThemeBlurTintColor, #111);
+    box-shadow: 0 18px 60px rgb(0 0 0 / 60%);
+}
+
+.mermaid-viewer-modal .mermaid-toolbar {
+    display: flex;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+.mermaid-viewer-modal .mermaid-viewport {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    touch-action: none;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mermaid-viewer-modal .mermaid-surface {
+    pointer-events: auto;
+}
+
+.mermaid-viewer-modal .mermaid-open-hint {
+    display: none;
+}
+
+.mermaid-viewport-interacting {
+    cursor: grabbing !important;
+    user-select: none;
+}
+
+@media (max-width: 700px), (pointer: coarse) {
+    .mermaid-viewer {
+        max-height: min(260px, 31vh);
+    }
+
+    .mermaid-viewport {
+        max-height: min(260px, 31vh);
+    }
+
+    .mermaid-preview-placeholder {
+        max-height: min(260px, 31vh);
+    }
+
+    .mermaid-modal-overlay {
+        padding: max(0.5rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right)) max(0.5rem, env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
+    }
+
+    .mermaid-viewer-modal {
+        width: 96vw;
+        max-width: 96vw;
+        height: min(640px, 78vh);
+        height: min(640px, 78dvh);
+        min-height: min(360px, 70vh);
+        max-height: 78vh;
+        max-height: 78dvh;
+    }
+
+    .mermaid-viewer-modal .mermaid-toolbar {
+        top: 0.35rem;
+        right: 0.35rem;
+        gap: 0.1rem;
+    }
+
+    .mermaid-control {
+        width: 2.4rem;
+        height: 2.4rem;
+        min-width: 2.4rem;
+    }
+
+    .mermaid-zoom-value {
+        width: 2.9rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .mermaid-viewer-modal {
+        width: calc(100vw - 0.5rem);
+        max-width: calc(100vw - 0.5rem);
+    }
+
+    .mermaid-viewer-modal .mermaid-toolbar {
+        left: 0.35rem;
+        right: 0.35rem;
+        justify-content: flex-end;
+    }
+
+    .mermaid-control {
+        width: 2.25rem;
+        height: 2.25rem;
+        min-width: 2.25rem;
+    }
 }
